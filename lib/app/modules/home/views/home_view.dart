@@ -1,7 +1,6 @@
 import 'package:essalud_project/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -48,7 +47,8 @@ class HomeView extends GetView<HomeController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          height: 40,
+                          //height: 40,
+                          padding: EdgeInsets.all(8),
                           color: Color(int.parse('6A749C', radix: 16))
                               .withOpacity(1.0),
                           child: const Center(
@@ -60,7 +60,7 @@ class HomeView extends GetView<HomeController> {
                           )),
                       Container(
                         color: Colors.grey,
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(30),
                         child: Column(
                           children: [
                             const Text(
@@ -70,7 +70,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                             SizedBox(height: 20,),
                             SizedBox(
-                              width: 100,
+                              width: 300,
                               child: ElevatedButton(
                                 // style: ElevatedButton.styleFrom(
                                 //   backgroundColor: Colors.green,
@@ -87,6 +87,59 @@ class HomeView extends GetView<HomeController> {
                     ],
                   ),
                 ),
+                //____________________________________
+                CustomElevatedButton(
+                  onButtonSelected: (index) {
+                    // Manejar la selección del botón
+                  },
+                ),
+                CustomFloatingActionButton(
+                  onButtonSelected: (index) {
+                    // Manejar la selección del botón
+                  },
+                ),
+/*                 Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                      SizedBox(height: 50),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                FloatingActionButton.extended(
+                                  onPressed: () {
+                                    //codigo para ejecutar
+                                  },
+                                  icon: Icon(Icons.settings, color: Colors.green),
+                                  label: Text('Mantenimiento',style: TextStyle(color: Colors.black),),
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0.0),
+                                  ),
+                                ),
+                                FloatingActionButton.extended(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.currency_exchange, color: Colors.green),
+                                  label: Text(' Mis Boletos ',style: TextStyle(color: Colors.black),),
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ), */
               ],
             ),
           ),
@@ -95,3 +148,120 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
+
+class CustomElevatedButton extends StatefulWidget {
+  final Function(int) onButtonSelected;
+  
+  CustomElevatedButton({Key? key, required this.onButtonSelected})
+      : super(key: key);
+
+  @override
+  _CustomElevatedButtonState createState() => _CustomElevatedButtonState();
+}
+
+class _CustomElevatedButtonState extends State<CustomElevatedButton> {
+  int _selectedButtonIndex = 0;
+
+  void _selectButton(int index) {
+    setState(() {
+      _selectedButtonIndex = index;
+      widget.onButtonSelected(index);
+    });
+  }
+
+  Widget _buildContainerWithButton() {
+    return SizedBox(
+      width: 300,
+      child:Container(
+          key: UniqueKey(),
+          margin: EdgeInsets.only(left: 0, top: 0,bottom: 300),
+          padding: EdgeInsets.only(top:0, left:0,bottom:100, right: 200),
+          color: Color.fromARGB(255, 223, 237, 245),
+          child: ElevatedButton(
+            onPressed: () => widget.onButtonSelected(_selectedButtonIndex),
+            child: Text(_selectedButtonIndex == 1 ? 'servicio' : 'Boleto'),
+          ),
+        ),
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: kToolbarHeight),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 500),
+              child: _buildContainerWithButton(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+class CustomFloatingActionButton extends StatelessWidget {
+  final Function(int) onButtonSelected;
+  CustomFloatingActionButton({Key? key, required this.onButtonSelected}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.3,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FloatingActionButton.extended(
+                      onPressed: () =>onButtonSelected(0),
+                      icon: Icon(Icons.settings, color: Colors.green),
+                      label: Text(
+                        'Mantenimiento',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
+                    ),
+                    FloatingActionButton.extended(
+                      onPressed: () =>
+                          onButtonSelected(1), 
+                      icon:
+                          Icon(Icons.currency_exchange, color: Colors.green),
+                      label: Text(
+                        ' Mis Boletos ',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
