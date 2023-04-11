@@ -70,7 +70,6 @@ class LoginView extends GetView<LoginController> {
       ),
     );
   }
-
   Widget _form() {
     return Container(
       color: Colors.white,

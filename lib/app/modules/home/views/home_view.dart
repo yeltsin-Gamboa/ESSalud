@@ -2,9 +2,11 @@ import 'package:essalud_project/app/modules/home/controllers/home_controller.dar
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:easy_sidemenu/easy_sidemenu.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,110 +38,108 @@ class HomeView extends GetView<HomeController> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                          colors: [Colors.white, Colors.blue],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter)),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          //height: 40,
-                          padding: EdgeInsets.all(8),
-                          color: Color(int.parse('6A749C', radix: 16))
-                              .withOpacity(1.0),
-                          child: const Center(
-                            child: Text(
-                              "Iniciar sesion",
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                          )),
-                      Container(
-                        color: Colors.grey,
-                        padding: EdgeInsets.all(30),
-                        child: Column(
-                          children: [
-                            const Text(
-                              "Bienbenido(a) @Apellido @nombres",
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 20,),
-                            SizedBox(
-                              width: 300,
-                              child: ElevatedButton(
-                                // style: ElevatedButton.styleFrom(
-                                //   backgroundColor: Colors.green,
-                                //   shape: RoundedRectangleBorder(
-                                //     borderRadius: BorderRadius.circular(18.0), // Set the border radius
-                                //     side: BorderSide(color: Color(0xFF5CBA7), width: 5), // Set the border color and width
-                                //   )
-                                // ),
-                                onPressed: (){}, child: Text("Salir", style: TextStyle(fontSize: 24),)),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                    gradient: const LinearGradient(
+                      colors: [Colors.white, Colors.blue],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
                   ),
                 ),
-                //____________________________________
-                CustomElevatedButton(
-                  onButtonSelected: (index) {
-                    // Manejar la selección del botón
-                  },
-                ),
-                CustomFloatingActionButton(
-                  onButtonSelected: (index) {
-                    // Manejar la selección del botón
-                  },
-                ),
-/*                 Container(
-                  height: MediaQuery.of(context).size.height,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children:[
-                      SizedBox(height: 50),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                FloatingActionButton.extended(
-                                  onPressed: () {
-                                    //codigo para ejecutar
-                                  },
-                                  icon: Icon(Icons.settings, color: Colors.green),
-                                  label: Text('Mantenimiento',style: TextStyle(color: Colors.black),),
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0.0),
-                                  ),
+                SizedBox(
+                  //width: 300,
+                  child: Row(
+                    children: [
+                      Drawer(
+                        child: ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            Container(
+                              height: 20,
+                              color: Color.fromARGB(255, 149, 167, 220),
+                              child: Center(
+                                child: Text(
+                                  "Iniciar Sesión",
+                                  style: TextStyle(fontSize: 18, color: Colors.white),
                                 ),
-                                FloatingActionButton.extended(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.currency_exchange, color: Colors.green),
-                                  label: Text(' Mis Boletos ',style: TextStyle(color: Colors.black),),
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0.0),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                            Container(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                "Bienvenido(a) @nombre @apellidos",
+                                style: TextStyle(fontSize: 14, color: Colors.black),
+                              ),
+                            ),
+                            DrawerHeader(
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 199, 205, 210),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.account_circle,
+                                    size: 80,
+                                  ),
+                                  SizedBox(height: 20),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.bottomCenter,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          // Aquí iría el código para cerrar sesión
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 5, right: 5),
+                                          child: Text(
+                                            'Salir',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ),
+                                        style: ButtonStyle(
+                                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10.0),
+                                            ),
+                                          ),
+                                          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.folder_open_sharp,
+                                color: Colors.yellow,
+                              ),
+                              title: const Text('Ver Mis Boletos'),
+                              onTap: () {
+                                // Lógica para la opción de ver mis boletos
+                              },
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.folder_open,
+                                color: const Color.fromARGB(255, 59, 255, 157),
+                              ),
+                              title: const Text('servicio'),
+                              onTap: () {
+                                // Lógica para la opción de ver mis boletos
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ), */
+                ),
+                CustomFloatingActionButton(
+                  )
               ],
             ),
           ),
@@ -148,66 +148,8 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
-
-class CustomElevatedButton extends StatefulWidget {
-  final Function(int) onButtonSelected;
-  
-  CustomElevatedButton({Key? key, required this.onButtonSelected})
-      : super(key: key);
-
-  @override
-  _CustomElevatedButtonState createState() => _CustomElevatedButtonState();
-}
-
-class _CustomElevatedButtonState extends State<CustomElevatedButton> {
-  int _selectedButtonIndex = 0;
-
-  void _selectButton(int index) {
-    setState(() {
-      _selectedButtonIndex = index;
-      widget.onButtonSelected(index);
-    });
-  }
-
-  Widget _buildContainerWithButton() {
-    return SizedBox(
-      width: 300,
-      child:Container(
-          key: UniqueKey(),
-          margin: EdgeInsets.only(left: 0, top: 0,bottom: 300),
-          padding: EdgeInsets.only(top:0, left:0,bottom:100, right: 200),
-          color: Color.fromARGB(255, 223, 237, 245),
-          child: ElevatedButton(
-            onPressed: () => widget.onButtonSelected(_selectedButtonIndex),
-            child: Text(_selectedButtonIndex == 1 ? 'servicio' : 'Boleto'),
-          ),
-        ),
-    );
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: kToolbarHeight),
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
-              child: _buildContainerWithButton(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-
 class CustomFloatingActionButton extends StatelessWidget {
-  final Function(int) onButtonSelected;
-  CustomFloatingActionButton({Key? key, required this.onButtonSelected}) : super(key: key);
+  CustomFloatingActionButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +170,7 @@ class CustomFloatingActionButton extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     FloatingActionButton.extended(
-                      onPressed: () =>onButtonSelected(0),
+                      onPressed: (){},
                       icon: Icon(Icons.settings, color: Colors.green),
                       label: Text(
                         'Mantenimiento',
@@ -240,8 +182,7 @@ class CustomFloatingActionButton extends StatelessWidget {
                       ),
                     ),
                     FloatingActionButton.extended(
-                      onPressed: () =>
-                          onButtonSelected(1), 
+                      onPressed: (){}, 
                       icon:
                           Icon(Icons.currency_exchange, color: Colors.green),
                       label: Text(
